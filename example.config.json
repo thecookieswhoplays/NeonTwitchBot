@@ -1,0 +1,12 @@
+{
+  "auth": "your auth token that you get at https://twitchapps.com/tmi/",
+  "name": "your twitch name",
+  "prefix": "!",
+  "channels": ["your twitch name"],
+  "configSource": "the name of the source that contains the text in obs.",
+  "HelpForObsUrlAndPassword": "you can get the obs url by going to obs and at the top click tools then websocket server settings. click show connect info then put the information like this in the obsUrl that you have in this file: ws://serverIp:Port also in obsPassword put the password you have in obs ",
+  "obsUrl": "ws://ip:port",
+  "obsPassword": "your obs Password",
+  "sendJoinMsg": true,
+  "botMods": ["lecookieplayer", "your name", "another mod etc"]
+}
