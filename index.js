@@ -62,7 +62,7 @@ client.on("message", async (channel, tags, message, self) => {
     const guess = message.split(" ")[1];
     if (!regex.test(guess)) {
       const msg =
-        tags.username + " You need to use this format. !join [0.01, 9999]";
+        tags.username + " You need to use this format. !end [0.01, 9999]";
       return client.say(config.channels[0], msg);
     }
     const ended = await play.end(guess);
