@@ -32,7 +32,6 @@ client.on("message", async (channel, tags, message, self) => {
     }
     const f = await play.find(tags.username);
     if (f.is) {
-      console.log(f);
       return client.say(
         config.channels[0],
         tags.username + " You are already registered with the guess " + f.guess
@@ -47,9 +46,6 @@ client.on("message", async (channel, tags, message, self) => {
     } else return;
   }
   if (message.startsWith(prefix + "end")) {
-    console.log(tags);
-    console.log(config.botMods.includes(tags.username));
-    console.log(tags.mod);
     if (!config.botMods.includes(tags.username)) {
       return client.say(
         config.channels[0],
@@ -70,7 +66,6 @@ client.on("message", async (channel, tags, message, self) => {
       return client.say(config.channels[0], msg);
     }
     const ended = await play.end(guess);
-    console.log(ended);
     await client.say(
       config.channels[0],
       tags.username +
