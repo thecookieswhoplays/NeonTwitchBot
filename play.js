@@ -52,6 +52,14 @@ class Play {
 
     const closestPlayers = closestGuesses.players.join(", ");
     console.log(`The closest guesses were made by ${closestPlayers}`);
+    await obs.call("SetInputSettings", {
+      inputName: config.endSource,
+      inputSettings: {
+        text: `The winner is ${closestPlayers}\nwith a difference of ${Number(
+          closestGuesses.diff.toFixed(3)
+        )}`,
+      },
+    });
     this.newGame();
     return closestGuesses;
   }

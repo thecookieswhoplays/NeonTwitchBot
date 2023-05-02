@@ -4,7 +4,8 @@ const tmi = require("tmi.js");
 const config = require("./config.json");
 const prefix = config.prefix;
 const Play = require("./play.js"); //const db = new FileStorage("db.json");
-const regex = /^([1-9]\d{0,3}(\.\d{1,2})?|0\.\d{1,2}|0,\d{1,2})$/;
+const regex =
+  /^([1-9]\d{0,3}(\.\d{1,2})?|[1-9]\d{0,3}(\,\d{1,2})?|0\.\d{1,2}|0\,\d{1,2})$/;
 
 const play = new Play();
 
@@ -24,7 +25,7 @@ client
   .catch(console.error);
 client.on("message", async (channel, tags, message, self) => {
   if (message.startsWith(prefix + "join")) {
-    const guess = message.split(" ")[1];
+    let guess = message.split(" ")[1];
     if (!regex.test(guess)) {
       const msg =
         tags.username + " You need to use this format. !join [0.01, 9999]";
@@ -37,11 +38,13 @@ client.on("message", async (channel, tags, message, self) => {
         tags.username + " You are already registered with the guess " + f.guess
       );
     }
+    guess = Number(guess.replace(",", "."));
+    console.log("guess", guess);
     play.add(tags.username, guess);
     if (config.sendJoinMsg) {
       return client.say(
         config.channels[0],
-        `Registerd ${tags.username} with guess ${guess}!`
+        `Registered ${tags.username} with guess ${guess}!`
       );
     } else return;
   }
@@ -56,7 +59,7 @@ client.on("message", async (channel, tags, message, self) => {
       console.error("Could not find game " + play);
       return client.say(
         config.channels[0],
-        "Could not end the game because it is not there Weird :("
+        "Could not end the game because it doesn't exist Weird :("
       );
     }
     const guess = message.split(" ")[1];
@@ -78,8 +81,3 @@ client.on("message", async (channel, tags, message, self) => {
     );
   }
 });
-
-async function worker(arg, cb) {
-  const re = await arg();
-  cb(null, re);
-}
