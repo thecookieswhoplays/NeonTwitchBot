@@ -39,7 +39,12 @@ class Play {
     const players = this.game.players;
     const closestGuesses = players.reduce(
       (closest, player) => {
-        const diff = Math.abs(player.guess - guess);
+        console.log(closest, player);
+        const diff = Math.abs(
+          player.guess - Number(guess.replace(",", "."))
+        ).toFixed(2);
+        console.log(diff, "diff", player.guess, guess);
+        console.log(this);
         if (diff < closest.diff) {
           return { players: [player.player], diff };
         } else if (diff === closest.diff) {
@@ -56,7 +61,7 @@ class Play {
       inputName: config.endSource,
       inputSettings: {
         text: `The winner is ${closestPlayers}\nwith a difference of ${Number(
-          closestGuesses.diff.toFixed(3)
+          closestGuesses.diff
         )}`,
       },
     });

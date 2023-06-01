@@ -68,6 +68,13 @@ client.on("message", async (channel, tags, message, self) => {
         tags.username + " You need to use this format. !end [0.01, 9999]";
       return client.say(config.channels[0], msg);
     }
+    if (play.game.players.length === 0) {
+      return client.say(
+        config.channels[0],
+        tags.username +
+          " There is no player in the game. If there is rerun this command."
+      );
+    }
     const ended = await play.end(guess);
     await client.say(
       config.channels[0],
